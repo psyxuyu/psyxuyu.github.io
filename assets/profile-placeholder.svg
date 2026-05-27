@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1100" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Yu Xu portrait placeholder</title>
+  <desc id="desc">A simple abstract portrait placeholder with the initials YX.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d3f47"/>
+      <stop offset="62%" stop-color="#116466"/>
+      <stop offset="100%" stop-color="#d6a35f"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="1100" fill="url(#bg)"/>
+  <rect width="900" height="1100" fill="url(#grid)" opacity=".8"/>
+  <circle cx="450" cy="390" r="150" fill="rgba(255,255,255,.82)"/>
+  <path d="M210 905c32-166 126-256 240-256s208 90 240 256" fill="rgba(255,255,255,.82)"/>
+  <text x="450" y="1015" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" fill="rgba(255,255,255,.92)" letter-spacing="10">YX</text>
+</svg>
