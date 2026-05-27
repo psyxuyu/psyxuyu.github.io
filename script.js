@@ -1,4 +1,4 @@
-const pages = {
+﻿const pages = {
   "index.html": {
     title: "Yu Xu | About Me",
     html: `
@@ -32,7 +32,7 @@ const pages = {
           </div>
         </div>
         <aside class="profile-card" aria-label="Profile summary">
-          <img class="portrait-placeholder" src="证件照.png" alt="Portrait of Yu Xu" />
+          <img class="portrait-placeholder" src="assets/profile.png" alt="Portrait of Yu Xu" />
           <div class="profile-meta">
             <p class="meta-label">Current Affiliation</p>
             <p>Shaanxi Key Laboratory of Behavior and Cognitive Neuroscience</p>
@@ -157,112 +157,67 @@ const momentPosts = [
     text: "Labour Day!",
     date: "2026.05.05",
     folder: "1",
-    images: [
-      "微信图片_2026-05-27_184147_241.jpg",
-      "微信图片_2026-05-27_184231_694.jpg",
-      "微信图片_2026-05-27_184242_519.jpg",
-      "微信图片_2026-05-27_184252_958.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Xiamen City",
     text: "Back and forth",
     date: "2026.03.01",
     folder: "2",
-    images: [
-      "微信图片_2026-05-27_184617_023.jpg",
-      "微信图片_2026-05-27_184631_668.jpg",
-      "微信图片_2026-05-27_184636_901.jpg",
-      "微信图片_2026-05-27_184643_694.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Quanzhou City",
     text: "I love, therefore I am.",
     date: "2026.02.27",
     folder: "3",
-    images: [
-      "微信图片_2026-05-27_184800_096.jpg",
-      "微信图片_2026-05-27_184817_890.jpg",
-      "微信图片_2026-05-27_184824_267.jpg",
-      "微信图片_2026-05-27_184833_256.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Pingxiang City",
     text: "When you buy an instant camera in Spring Festival",
     date: "2026.02.15",
     folder: "4",
-    images: [
-      "微信图片_2026-05-27_185641_307.jpg",
-      "微信图片_2026-05-27_185715_714.jpg",
-      "微信图片_2026-05-27_185720_286.jpg",
-      "微信图片_2026-05-27_185724_526.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Yan'an City",
     text: "By our own hands",
     date: "2026.01.21",
     folder: "5",
-    images: [
-      "微信图片_2026-05-27_185109_771.jpg",
-      "微信图片_2026-05-27_185122_906.jpg",
-      "微信图片_2026-05-27_185132_871.jpg",
-      "微信图片_2026-05-27_185141_174.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Yulin City",
     text: "The loess plateau",
     date: "2026.01.19",
     folder: "6",
-    images: [
-      "微信图片_2026-05-27_185254_033.jpg",
-      "微信图片_2026-05-27_185313_106.jpg",
-      "微信图片_2026-05-27_185317_024.jpg",
-      "微信图片_2026-05-27_185321_215.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Xi'an City",
     text: "Happy New Year!!!",
     date: "2025.12.31",
     folder: "7",
-    images: [
-      "微信图片_2026-05-27_185459_530.jpg",
-      "微信图片_2026-05-27_185511_037.jpg",
-      "微信图片_2026-05-27_185517_073.jpg",
-      "微信图片_2026-05-27_185522_752.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Beijing City",
     text: "Concert at National Center for the Performing Arts",
     date: "2025.12.01",
     folder: "8",
-    images: [
-      "微信图片_2026-05-27_190033_579.jpg",
-      "微信图片_2026-05-27_190049_605.jpg",
-      "微信图片_2026-05-27_190053_694.jpg",
-      "微信图片_2026-05-27_190059_799.jpg",
-    ],
+    imageCount: 4,
   },
   {
     city: "Jinan City",
     text: "Conference & Travel",
     date: "2025.11.02",
     folder: "9",
-    images: [
-      "微信图片_2026-05-27_190235_907.jpg",
-      "微信图片_2026-05-27_190247_811.jpg",
-      "微信图片_2026-05-27_190251_222.jpg",
-      "微信图片_2026-05-27_190253_989.jpg",
-    ],
+    imageCount: 4,
   },
 ];
 
-const imagePath = (folder, file) => `Life & Interests/${folder}/${file}`;
+const imagePath = (folder, index) => `assets/moments/${String(folder).padStart(2, "0")}-${String(index + 1).padStart(2, "0")}.jpg`;
 
 const renderMomentPost = (post) => `
   <article class="moment-card">
@@ -271,9 +226,8 @@ const renderMomentPost = (post) => `
       <div class="moment-header"><time>${post.date}</time></div>
       <p>${post.text}</p>
       <div class="moment-grid">
-        ${post.images
-          .map((image, index) => {
-            const src = imagePath(post.folder, image);
+        ${Array.from({ length: post.imageCount }, (_, index) => {
+            const src = imagePath(post.folder, index);
             return `<button data-lightbox-src="${src}"><img src="${src}" alt="${post.city} photo ${index + 1}" /></button>`;
           })
           .join("")}
@@ -418,3 +372,5 @@ window.addEventListener("popstate", () => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
 });
+
+
