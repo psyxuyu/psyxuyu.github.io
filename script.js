@@ -65,11 +65,13 @@ const momentPosts = [
 ];
 
 const imagePath = (folder, index) => `assets/moments/${String(folder).padStart(2, "0")}-${String(index + 1).padStart(2, "0")}.jpg`;
+const resolveAssetPath = (path) => new URL(path, document.baseURI).href;
 
 const renderMomentImages = (post) =>
   Array.from({ length: post.imageCount }, (_, index) => {
     const src = imagePath(post.folder, index);
-    return `<button data-lightbox-src="${src}"><img src="${src}" alt="${post.city} photo ${index + 1}" /></button>`;
+    const resolvedSrc = resolveAssetPath(src);
+    return `<button type="button" data-lightbox-src="${resolvedSrc}"><img src="${resolvedSrc}" alt="${post.city} photo ${index + 1}" /></button>`;
   }).join("");
 
 const renderMomentPost = (post) => `
@@ -118,6 +120,23 @@ const closeLightbox = () => {
   document.body.classList.remove("no-scroll");
 };
 
+const openLightboxFromTrigger = (trigger) => {
+  const image = trigger.querySelector("img");
+  openLightbox(trigger.dataset.lightboxSrc, image ? image.alt : "Photo preview");
+};
+
+const bindLightboxTriggers = (root = document) => {
+  root.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
+    if (trigger.dataset.lightboxBound === "true") return;
+    trigger.dataset.lightboxBound = "true";
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openLightboxFromTrigger(trigger);
+    });
+  });
+};
+
 const setActiveNav = () => {
   const sections = Array.from(document.querySelectorAll(".snap-section[id]"));
   const navLinks = Array.from(document.querySelectorAll(".nav a[href^='#']"));
@@ -138,11 +157,13 @@ window.addEventListener("DOMContentLoaded", () => {
   const feed = document.querySelector(".moments-feed");
   if (feed && !feed.children.length) {
     feed.innerHTML = momentPosts.map(renderMomentPost).join("");
+    bindLightboxTriggers(feed);
   }
 
   const previewFeed = document.querySelector("[data-moment-preview]");
   if (previewFeed && !previewFeed.children.length) {
     previewFeed.innerHTML = momentPosts.slice(0, 2).map(renderMomentPost).join("");
+    bindLightboxTriggers(previewFeed);
   }
 
   setActiveNav();
@@ -156,8 +177,7 @@ document.addEventListener("click", (event) => {
   const lightboxTrigger = event.target.closest("[data-lightbox-src]");
   if (lightboxTrigger) {
     event.preventDefault();
-    const image = lightboxTrigger.querySelector("img");
-    openLightbox(lightboxTrigger.dataset.lightboxSrc, image?.alt || "Photo preview");
+    openLightboxFromTrigger(lightboxTrigger);
     return;
   }
 

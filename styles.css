@@ -25,12 +25,10 @@ html {
 
 html.page-ready body {
   opacity: 1;
-  transform: translateY(0);
 }
 
 main {
   opacity: 1;
-  transform: translateY(0);
 }
 
 main.content-leaving {
@@ -885,23 +883,28 @@ h3 {
 
 .lightbox {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 100;
   display: none;
-  align-items: center;
-  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  place-items: center;
   padding: 2rem;
   background: rgba(8, 17, 24, 0.82);
   cursor: zoom-out;
 }
 
 .lightbox.open {
-  display: flex;
+  display: grid;
 }
 
 .lightbox img {
+  display: block;
   max-width: min(92vw, 1100px);
   max-height: 86vh;
+  max-height: 86dvh;
   border-radius: 6px;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
   object-fit: contain;
@@ -1146,6 +1149,16 @@ h3 {
     min-height: 2.6rem;
     padding: 0.58rem 0.65rem;
     font-size: 0.86rem;
+  }
+
+  .lightbox {
+    padding: 1rem;
+  }
+
+  .lightbox img {
+    max-width: 94vw;
+    max-height: 84vh;
+    max-height: 84dvh;
   }
 
   h1 {
